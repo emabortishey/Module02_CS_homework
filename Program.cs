@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using static System.Console;
+using static System.Net.Mime.MediaTypeNames;
 
 // ZADANIE 1
 
@@ -35,7 +37,25 @@ for(int i = 0;i < B.GetLength(0);i++)
 {
     for(int j = 0;j < B.GetLength(1); j++)
     {
-        B[i,j] = random.NextDouble()*100;
+        B[i, j] = Math.Round(random.NextDouble()*100, 1);
     }
 }
 
+WriteLine("\n\nПервый массив: ");
+
+for (int i = 0; i < A.Length; i++)
+{
+    Write(A[i] + " ");
+}
+
+
+WriteLine("\n\nВторой массив: ");
+
+for (int i = 0; i < B.GetLength(0); i++)
+{
+    for (int j = 0; j < B.GetLength(1); j++)
+    {
+        Write(B[i, j] + " ");
+    }
+    WriteLine();
+}
