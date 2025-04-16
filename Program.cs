@@ -200,3 +200,33 @@ else if (maxCOL < minCOL && maxROW < minROW || maxCOL <= minCOL && maxROW < minR
 }
 
 WriteLine($"Сумма всех чисел между индексами макс и мин. элементов равна {summ5x5}");
+
+// ZADANIE 3
+
+/*
+
+ Пользователь вводит строку с клавиатуры. Необходимо зашифровать данную строку используя шифр Цезаря.
+Из Википедии:
+
+Шифр Цезаря — это вид шифра подстановки, в котором 
+каждый символ в открытом тексте заменяется
+символом, находящимся на некотором постоянном числе
+позиций левее или правее него в алфавите. Например,
+в шифре со сдвигом вправо на 3, A была бы заменена на
+D, B станет E, и так далее.
+Подробнее тут: https://en.wikipedia.org/wiki/Caesar_cipher.
+Кроме механизма шифровки, реализуйте механизм
+расшифрования.
+
+*/
+
+string user_str = ReadLine();
+char[] user_char_str = new char[user_str.Length + 1];
+user_char_str = user_str.ToCharArray();
+
+for(int i = 0; i< user_str.Length; i++)
+{
+    user_char_str[i] = (char)(user_str[i] + 3);
+}
+
+WriteLine(user_char_str);
