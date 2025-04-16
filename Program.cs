@@ -223,9 +223,24 @@ D, B станет E, и так далее.
 string user_str = ReadLine();
 char[] user_char_str = new char[user_str.Length + 1];
 
+// тут как при шифровке так и при дешифровке идёт проверка (то есть если
+// при шифровке со сдвигом вправа на 3 как я и сделала, в тексте будет
+// буква xyz то сдвиг не пойдёт в символы, а перейдёт в начало алфавита
+// и также будет и при дешифровке, abc перейдут в конец алфавита а не в символы
 for(int i = 0; i< user_str.Length; i++)
 {
-    user_char_str[i] = (char)(user_str[i] + 3);
+    if ((int)(user_str[i]) == 88 || (int)(user_str[i]) == 89 || (int)(user_str[i]) == 90)
+    {
+        user_char_str[i] = (char)(64 + (4 + ((int)(user_str[i])-91)));
+    }
+    else if ((int)(user_str[i]) == 120 || (int)(user_str[i]) == 121 || (int)(user_str[i]) == 122)
+    {
+        user_char_str[i] = (char)(96 + (4 + ((int)(user_str[i]) - 123)));
+    }
+    else
+    {
+        user_char_str[i] = (char)(user_str[i] + 3);
+    }
 }
 
 // тут я не уместила все выводы в writeline потому что при
@@ -242,7 +257,18 @@ user_str = ReadLine();
 
 for (int i = 0; i < user_str.Length; i++)
 {
-    user_char_str[i] = (char)(user_str[i] - 3);
+    if ((int)(user_str[i]) == 65 || (int)(user_str[i]) == 66 || (int)(user_str[i]) == 67)
+    {
+        user_char_str[i] = (char)(91 - (4 - ((int)(user_str[i]) - 64)));
+    }
+    else if((int)(user_str[i]) == 97 || (int)(user_str[i]) == 98 || (int)(user_str[i]) == 99)
+    {
+        user_char_str[i] = (char)(123 - (4 - ((int)(user_str[i]) - 96)));
+    }
+    else
+    {
+        user_char_str[i] = (char)(user_str[i] - 3);
+    }
 }
 
 WriteLine("\nРасшифрованная строка: ");
