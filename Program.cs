@@ -199,7 +199,7 @@ else if (maxCOL < minCOL && maxROW < minROW || maxCOL <= minCOL && maxROW < minR
     }
 }
 
-WriteLine($"Сумма всех чисел между индексами макс и мин. элементов равна {summ5x5}");
+WriteLine($"Сумма всех чисел между индексами макс и мин. элементов равна {summ5x5} \n\nВведите строку которую нужно зашифровать: ");
 
 // ZADANIE 3
 
@@ -222,11 +222,28 @@ D, B станет E, и так далее.
 
 string user_str = ReadLine();
 char[] user_char_str = new char[user_str.Length + 1];
-user_char_str = user_str.ToCharArray();
 
 for(int i = 0; i< user_str.Length; i++)
 {
     user_char_str[i] = (char)(user_str[i] + 3);
 }
 
-WriteLine(user_char_str);
+// тут я не уместила все выводы в writeline потому что при
+// попытке прописать как через $ так и через + в одной такой
+// конструкции у меня выводилось что-то вроде
+// System.Char[] вместо самой строки даже при попытке
+// прописать user_char_str.ToArray()
+
+WriteLine("\nЗашифрованная строка: ");
+Write(user_char_str);
+WriteLine("\nВведите строку которую нужно расшифровать: ");
+
+user_str = ReadLine();
+
+for (int i = 0; i < user_str.Length; i++)
+{
+    user_char_str[i] = (char)(user_str[i] - 3);
+}
+
+WriteLine("\nРасшифрованная строка: ");
+Write(user_char_str);
