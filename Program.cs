@@ -102,3 +102,101 @@ WriteLine($"Произведение всех элементов массива 
 WriteLine($"Произведение всех элементов массива B: {multD}");
 WriteLine($"Сумма всех элементов с чётным индексом массива А: {evensumm}");
 WriteLine($"Сумма всех элементов столбцов с нечётным индексом массива B: {unevenCOLsummD}");
+
+// ZADANIE 2
+
+/*
+ 
+Дан двумерный массив размерностью 5×5, заполненный 
+случайными числами из диапазона от –100 до 100.
+Определить сумму элементов массива, расположенных
+между минимальным и максимальным элементами
+
+*/
+
+int[,] mass5x5 = new int[5, 5];
+int maxCOL = 0, maxROW = 0, minCOL = 0, minROW = 0;
+int summ5x5 = 0;
+bool check = false;
+
+WriteLine("Массив 5x5: ");
+
+for (int i = 0; i < 5; i++) 
+{
+    for (int j = 0; j < 5; j++)
+    {
+        mass5x5[i, j] = random.Next(-100, 100);
+
+        Write(mass5x5[i, j]+" ");
+
+        if(mass5x5[i, j] < mass5x5[minCOL, minROW])
+        {
+            minCOL = i;
+            minROW = j;
+        }
+        if (mass5x5[i, j] > mass5x5[maxCOL, maxROW]) 
+        {
+            maxCOL = i;
+            maxROW = j;
+        }
+    }
+    WriteLine();
+}
+
+WriteLine($"Максимальным элементом массива является {mass5x5[maxCOL, maxROW]}, а минимальным {mass5x5[minCOL, minROW]}");
+
+if (maxCOL > minCOL && maxROW > minROW || maxCOL >= minCOL && maxROW > minROW || maxCOL > minCOL && maxROW >= minROW)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if (mass5x5[i, j] == mass5x5[minCOL, minROW])
+            {
+                check = true;
+            }
+            if (mass5x5[i, j] == mass5x5[maxCOL, maxROW])
+            {
+                check = false;
+                summ5x5 += mass5x5[maxCOL, maxROW];
+
+                i = 5;
+                j = 5;
+            }
+
+            if(check == true)
+            {
+                summ5x5 += mass5x5[i, j];
+            }
+        }
+    }
+}
+
+else if (maxCOL < minCOL && maxROW < minROW || maxCOL <= minCOL && maxROW < minROW || maxCOL < minCOL && maxROW <= minROW)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if (mass5x5[i, j] == mass5x5[maxCOL, maxROW])
+            {
+                check = true;
+            }
+            if (mass5x5[i, j] == mass5x5[minCOL, minROW])
+            {
+                check = false;
+                summ5x5 += mass5x5[minCOL, minROW];
+
+                i = 5;
+                j = 5;
+            }
+
+            if (check == true)
+            {
+                summ5x5 += mass5x5[i, j];
+            }
+        }
+    }
+}
+
+WriteLine($"Сумма всех чисел между индексами макс и мин. элементов равна {summ5x5}");
