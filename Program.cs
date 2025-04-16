@@ -247,3 +247,97 @@ for (int i = 0; i < user_str.Length; i++)
 
 WriteLine("\nРасшифрованная строка: ");
 Write(user_char_str);
+
+// ZADANIE 4
+
+/*
+ 
+Создайте приложение, которое производит операции
+над матрицами:
+■ Умножение матрицы на число;
+■ Сложение матриц;
+■ Произведение матриц
+ 
+ */
+
+const int size = 2;
+int[,] A_matrix = new int[size, size] { { 1, 2 }, { 3, 4 } };
+int[,] B_matrix = new int[size, size] { { 5, 6 }, { 7, 8 } };
+
+int[,] Result = new int[size, size];
+
+int user_choice;
+
+WriteLine("\nМатрица A:\n");
+
+for (int i = 0; i < size; i++)
+{
+    for (int j = 0; j < size; j++)
+    {
+        Write(A_matrix[i, j]+" ");
+    }
+    WriteLine();
+}
+
+WriteLine("Матрица B:\n");
+
+for (int i = 0; i < size; i++)
+{
+    for (int j = 0; j < size; j++)
+    {
+        Write(B_matrix[i, j]+" ");
+    }
+    WriteLine();
+}
+
+WriteLine("\nВведите число в зависимости от вашего выбора действия над  матрицами А и В:\n1.Сложить\nВычесть\n3.Умножить\n\n");
+
+user_choice = Convert.ToInt32(ReadLine());
+
+WriteLine("\nРезультат: ");
+
+switch(user_choice)
+{
+    case (int)Ops.SUMM:
+        {
+            for (int i = 0; i < size; i++) 
+            {
+                for (int j = 0; j < size; j++) 
+                {
+                    Result[i, j] = A_matrix[i, j] + B_matrix[i, j];
+                }
+            }
+            break;
+        }
+    case (int)Ops.SUBT:
+        {
+            for (int i = 0; i < size; i++) 
+            {
+                for (int j = 0; j < size; j++) 
+                {
+                    Result[i, j] = A_matrix[i, j] - B_matrix[i, j];
+                }
+            }
+            break;
+        }
+    case (int)Ops.MULT:
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    for (int k = 0; k < size; k++)
+                    {
+                        Result[i,j] += A_matrix[i,k] * B_matrix[k,j];
+                    }
+
+                    Write(Result[i, j]+" ");
+                }
+                WriteLine();
+            }
+
+            break;
+        }
+}
+
+public enum Ops { SUMM = 1, SUBT, MULT };
