@@ -227,6 +227,7 @@ char[] user_char_str = new char[user_str.Length + 1];
 // при шифровке со сдвигом вправа на 3 как я и сделала, в тексте будет
 // буква xyz то сдвиг не пойдёт в символы, а перейдёт в начало алфавита
 // и также будет и при дешифровке, abc перейдут в конец алфавита а не в символы
+// и данная схема распространяется на оба регистра
 for(int i = 0; i< user_str.Length; i++)
 {
     if ((int)(user_str[i]) == 88 || (int)(user_str[i]) == 89 || (int)(user_str[i]) == 90)
@@ -365,5 +366,49 @@ switch(user_choice)
             break;
         }
 }
+
+// ZADANIE 6
+
+/*
+
+Пользователь с клавиатуры вводит некоторый текст.
+Приложение должно изменять регистр первой буквы
+каждого предложения на букву в верхнем регистре.
+
+Например, если пользователь ввёл: «today is a good
+day for walking. i will try to walk near the sea».
+Результат работы приложения: «Today is a good day
+for walking. I will try to walk near the sea».
+
+*/
+
+WriteLine("Введите предложения, регистр первых букв которых нужно исправить на верхний: ");
+
+string str_text = ReadLine();
+char[] str_text_but_chared = str_text.ToCharArray();
+
+// проверка на регистр первой буквы строки
+if(str_text_but_chared[0] > 96 && str_text_but_chared[0] < 123)
+{
+    str_text_but_chared[0] = (char)(str_text[0] - 32);
+}
+
+// проверка на начало нового предложения и на то,
+// не написана ли первая буква уже верхним регистром
+
+for (int i = 0; i < str_text.Length; i++) 
+{
+    if (str_text_but_chared[i] == '.' && str_text_but_chared[i + 1] == ' ' && str_text_but_chared[i + 2] > 96 && str_text_but_chared[i + 2] < 123) 
+    {
+        str_text_but_chared[i + 2] = (char)(str_text[i + 2] - 32);
+    }
+}
+
+WriteLine("Получившийся текст: ");
+Write(str_text_but_chared);
+
+// ZADANIE 7
+
+
 
 public enum Ops { SUMM = 1, SUBT, MULT };
