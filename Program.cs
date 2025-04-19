@@ -416,21 +416,6 @@ while (chared_exp.Length!=0)
     }
     if (oper == true)
     {
-        //for (int i = 0;i < buff_exp.IndexOf('+'); i++)
-        //{
-        //    curr_numb[i] = chared_exp[i];
-        //}
-
-        //buff_chared_exp = new char[chared_exp.Length - buff_exp.IndexOf('+')];
-
-        //for(int i = buff_exp.IndexOf('+')+1; i<chared_exp.Length;i++)
-        //{
-        //    buff_chared_exp[counter]  = chared_exp[i];
-        //    counter++;
-        //}
-
-        //op_res += Convert.ToInt32(curr_numb);
-
         for (int i = 0; user_exp[i] != '+'; i++) 
         {
             curr_numb[i] = user_exp[i];
@@ -446,28 +431,21 @@ while (chared_exp.Length!=0)
     }
     else
     {
-        ////for (int i = 0; i < buff_exp.IndexOf('-'); i++)
-        ////{
-        ////    curr_numb[i] = chared_exp[i];
-        ////}
+        for (int i = 0; user_exp[i] != '-'; i++)
+        {
+            curr_numb[i] = user_exp[i];
+            op_indx = i + 2;
+        }
 
-        //curr_numb_str = chared_exp.ToString().Substring(0, buff_exp.IndexOf('-'));
+        user_exp.CopyTo(0, curr_numb, 0, op_indx - 1);
 
-        //buff_chared_exp = new char[chared_exp.Length - buff_exp.IndexOf('-')];
+        curr = int.Parse(curr_numb);
+        op_res -= curr;
 
-        //for (int i = buff_exp.IndexOf('-') + 1; i < chared_exp.Length; i++)
-        //{
-        //    buff_chared_exp[counter] = chared_exp[i];
-        //    counter++;
-        //}
-
-        ////curr_numb_str = curr_numb.ToString();
-        //int.TryParse(curr_numb_str, out curr);
-        //op_res -= curr;
+        user_exp.Remove(0, op_indx);
     }
 
     counter = 0;
-    // chared_exp = buff_chared_exp;
 }
 
 // ZADANIE 6
