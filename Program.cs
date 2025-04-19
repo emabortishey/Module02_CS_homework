@@ -384,10 +384,13 @@ char[] chared_exp = new char[user_exp.Length];
 char[] buff_chared_exp;
 string buff_exp;
 char[] curr_numb = new char[user_exp.Length];
+string curr_numb_str;
 int next_numb_index = 0;
 int counter = 0;
 bool oper = false;
 int op_res = 0;
+int curr = 0;
+int op_indx = 0;
 
 // убираем пробелы в случа если пользователь ввёл
 // выражение кое-как и поставил их не везде, чтобы
@@ -395,58 +398,76 @@ int op_res = 0;
 
 foreach(char buff in user_exp)
 {
-    if(buff!= ' ')
+    if(buff== ' ')
     {
-        chared_exp[counter] = buff;
-
-        counter++;
+        user_exp.Remove(counter, 1);
     }
+        counter++;
 }
 
 counter = 0;
 
 while (chared_exp.Length!=0)
 {
-    buff_exp = chared_exp.ToString();
 
-    if(buff_exp.IndexOf('-') > buff_exp.IndexOf('+'))
+    if(user_exp.IndexOf('-') > user_exp.IndexOf('+') || user_exp.IndexOf('-') < 0)
     {
         oper = true;
     }
     if (oper == true)
     {
-        for (int i = 0;i < buff_exp.IndexOf('+'); i++)
+        //for (int i = 0;i < buff_exp.IndexOf('+'); i++)
+        //{
+        //    curr_numb[i] = chared_exp[i];
+        //}
+
+        //buff_chared_exp = new char[chared_exp.Length - buff_exp.IndexOf('+')];
+
+        //for(int i = buff_exp.IndexOf('+')+1; i<chared_exp.Length;i++)
+        //{
+        //    buff_chared_exp[counter]  = chared_exp[i];
+        //    counter++;
+        //}
+
+        //op_res += Convert.ToInt32(curr_numb);
+
+        for (int i = 0; user_exp[i] != '+'; i++) 
         {
-            curr_numb[i] = chared_exp[i];
+            curr_numb[i] = user_exp[i];
+            op_indx = i + 2;
         }
 
-        buff_chared_exp = new char[chared_exp.Length - buff_exp.IndexOf('+')];
+        user_exp.CopyTo(0, curr_numb, 0, op_indx - 1);
 
-        for(int i = buff_exp.IndexOf('+')+1; i<chared_exp.Length;i++)
-        {
-            buff_chared_exp[i- buff_exp.IndexOf('+') + 1]  = chared_exp[i];
-        }
+        curr = int.Parse(curr_numb);
+        op_res += curr;
 
-        op_res += Convert.ToInt32(curr_numb);
+        user_exp.Remove(0, op_indx);
     }
     else
     {
-        for (int i = 0; i < buff_exp.IndexOf('-'); i++)
-        {
-            curr_numb[i] = chared_exp[i];
-        }
+        ////for (int i = 0; i < buff_exp.IndexOf('-'); i++)
+        ////{
+        ////    curr_numb[i] = chared_exp[i];
+        ////}
 
-        buff_chared_exp = new char[chared_exp.Length - buff_exp.IndexOf('-')];
+        //curr_numb_str = chared_exp.ToString().Substring(0, buff_exp.IndexOf('-'));
 
-        for (int i = buff_exp.IndexOf('-') + 1; i < chared_exp.Length; i++)
-        {
-            buff_chared_exp[i - buff_exp.IndexOf('+') + 1] = chared_exp[i];
-        }
+        //buff_chared_exp = new char[chared_exp.Length - buff_exp.IndexOf('-')];
 
-        op_res -= Convert.ToInt32(curr_numb);
+        //for (int i = buff_exp.IndexOf('-') + 1; i < chared_exp.Length; i++)
+        //{
+        //    buff_chared_exp[counter] = chared_exp[i];
+        //    counter++;
+        //}
+
+        ////curr_numb_str = curr_numb.ToString();
+        //int.TryParse(curr_numb_str, out curr);
+        //op_res -= curr;
     }
 
-    chared_exp = buff_chared_exp;
+    counter = 0;
+    // chared_exp = buff_chared_exp;
 }
 
 // ZADANIE 6
@@ -464,7 +485,7 @@ for walking. I will try to walk near the sea».
 
 */
 
-WriteLine("Введите предложения, регистр первых букв которых нужно исправить на верхний: ");
+WriteLine($"{op_res}\n\nВведите предложения, регистр первых букв которых нужно исправить на верхний: ");
 
 string str_text = ReadLine();
 char[] str_text_but_chared = str_text.ToCharArray();
