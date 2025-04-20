@@ -384,10 +384,12 @@ char[] chared_exp = new char[user_exp.Length];
 char[] buff_chared_exp;
 string buff_exp;
 char[] curr_numb = new char[user_exp.Length];
+char[] curr_numb2 = new char[user_exp.Length];
 string curr_numb_str;
 int next_numb_index = 0;
 int counter = 0;
 bool oper = false;
+char next_oper = '-';
 int op_res = 0;
 int curr = 0;
 int op_indx = 0;
@@ -400,52 +402,93 @@ foreach(char buff in user_exp)
 {
     if(buff== ' ')
     {
-        user_exp.Remove(counter, 1);
+        user_exp = user_exp.Remove(counter, 1);
     }
         counter++;
 }
 
 counter = 0;
 
-while (chared_exp.Length!=0)
+if (user_exp[0] != '-') 
 {
+    user_exp = user_exp.Insert(0, "+");
+}
 
-    if(user_exp.IndexOf('-') > user_exp.IndexOf('+') || user_exp.IndexOf('-') < 0)
+while (user_exp.IndexOf('-') == 0 || user_exp.IndexOf('+') == 0) 
+{
+    if(user_exp.IndexOf('-') == 0)
+    {
+        oper = false;
+    }
+    else if(user_exp.IndexOf('+') == 0)
     {
         oper = true;
     }
+
+    user_exp = user_exp.Remove(0, 1);
+
+    if (user_exp.IndexOf('+') > 0 && user_exp.IndexOf('-') > 0) 
+    {
+        if (user_exp.IndexOf('+') > user_exp.IndexOf('-'))
+        {
+            next_oper = '-';
+        }
+        else
+        {
+            next_oper = '+';
+        }
+    }
+    else if(user_exp.IndexOf('+') < 0 && user_exp.IndexOf('-') < 0)
+    {
+        break;
+    }
+    else if (user_exp.IndexOf('+') < 0)
+    {
+        next_oper = '-';
+    }
+    else if(user_exp.IndexOf('-')<0)
+    {
+        next_oper = '+';
+    }
+
     if (oper == true)
     {
-        for (int i = 0; user_exp[i] != '+'; i++) 
+        for (int i = 0; user_exp.IndexOf(next_oper) != i; i++)
         {
             curr_numb[i] = user_exp[i];
-            op_indx = i + 2;
+            op_indx = i;
         }
 
-        user_exp.CopyTo(0, curr_numb, 0, op_indx - 1);
+        user_exp.CopyTo(0, curr_numb, 0, op_indx);
 
-        curr = int.Parse(curr_numb);
-        op_res += curr;
+        op_res += int.Parse(curr_numb);
 
-        user_exp.Remove(0, op_indx);
+        user_exp = user_exp.Remove(0, op_indx+1);
     }
     else
     {
-        for (int i = 0; user_exp[i] != '-'; i++)
+        for (int i = 0; user_exp.IndexOf(next_oper)!=i; i++)
         {
             curr_numb[i] = user_exp[i];
-            op_indx = i + 2;
+            op_indx = i;
         }
 
-        user_exp.CopyTo(0, curr_numb, 0, op_indx - 1);
+        user_exp.CopyTo(1, curr_numb, 0, op_indx);
 
-        curr = int.Parse(curr_numb);
-        op_res -= curr;
+        op_res -= int.Parse(curr_numb);
 
-        user_exp.Remove(0, op_indx);
+        user_exp = user_exp.Remove(0, op_indx+1);
     }
+}
 
-    counter = 0;
+if(oper == true)
+{
+    op_res += int.Parse(user_exp);
+}
+else
+{
+    
+    op_res -= int.Parse(user_exp);
 }
 
 // ZADANIE 6
