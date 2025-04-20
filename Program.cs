@@ -367,172 +367,187 @@ using static System.Net.Mime.MediaTypeNames;
 //        }
 //} 
 
-// ZADANIE 5
+//// ZADANIE 5
 
-/*
+///*
 
-Пользователь с клавиатуры вводит в строку арифметическое 
-выражение. Приложение должно посчитать его результат.
-Необходимо поддерживать только две операции: + и –.
+//Пользователь с клавиатуры вводит в строку арифметическое 
+//выражение. Приложение должно посчитать его результат.
+//Необходимо поддерживать только две операции: + и –.
 
-*/
+//*/
 
-WriteLine("Введите математическое выражние для вычисления: ");
+//WriteLine("Введите математическое выражние для вычисления: ");
 
-string user_exp = ReadLine();
-char[] chared_exp = new char[user_exp.Length];
-char[] buff_chared_exp;
-string buff_exp;
-char[] curr_numb = new char[user_exp.Length];
-char[] curr_numb2 = new char[user_exp.Length];
-string curr_numb_str;
-int next_numb_index = 0;
-int counter = 0;
-bool oper = false;
-char next_oper = '-';
-int op_res = 0;
-int curr = 0;
-int op_indx = 0;
+//string user_exp = ReadLine();
+//char[] chared_exp = new char[user_exp.Length];
+//char[] buff_chared_exp;
+//string buff_exp;
+//char[] curr_numb = new char[user_exp.Length];
+//char[] curr_numb2 = new char[user_exp.Length];
+//string curr_numb_str;
+//int next_numb_index = 0;
+//int counter = 0;
+//bool oper = false;
+//char next_oper = '-';
+//int op_res = 0;
+//int curr = 0;
+//int op_indx = 0;
 
-// убираем пробелы в случа если пользователь ввёл
-// выражение кое-как и поставил их не везде, чтобы
-// было легче отделять +, - и числа при выполнении
+//// убираем пробелы в случа если пользователь ввёл
+//// выражение кое-как и поставил их не везде, чтобы
+//// было легче отделять +, - и числа при выполнении
 
-foreach(char buff in user_exp)
-{
-    if(buff== ' ')
-    {
-        user_exp = user_exp.Remove(counter, 1);
-    }
-        counter++;
-}
+//foreach(char buff in user_exp)
+//{
+//    if(buff== ' ')
+//    {
+//        user_exp = user_exp.Remove(counter, 1);
+//    }
+//        counter++;
+//}
 
-counter = 0;
+//counter = 0;
 
-if (user_exp[0] != '-') 
-{
-    user_exp = user_exp.Insert(0, "+");
-}
+//if (user_exp[0] != '-') 
+//{
+//    user_exp = user_exp.Insert(0, "+");
+//}
 
-while (user_exp.IndexOf('-') == 0 || user_exp.IndexOf('+') == 0) 
-{
-    if(user_exp.IndexOf('-') == 0)
-    {
-        oper = false;
-    }
-    else if(user_exp.IndexOf('+') == 0)
-    {
-        oper = true;
-    }
+//while (user_exp.IndexOf('-') == 0 || user_exp.IndexOf('+') == 0) 
+//{
+//    if(user_exp.IndexOf('-') == 0)
+//    {
+//        oper = false;
+//    }
+//    else if(user_exp.IndexOf('+') == 0)
+//    {
+//        oper = true;
+//    }
 
-    user_exp = user_exp.Remove(0, 1);
+//    user_exp = user_exp.Remove(0, 1);
 
-    if (user_exp.IndexOf('+') > 0 && user_exp.IndexOf('-') > 0) 
-    {
-        if (user_exp.IndexOf('+') > user_exp.IndexOf('-'))
-        {
-            next_oper = '-';
-        }
-        else
-        {
-            next_oper = '+';
-        }
-    }
-    else if(user_exp.IndexOf('+') < 0 && user_exp.IndexOf('-') < 0)
-    {
-        break;
-    }
-    else if (user_exp.IndexOf('+') < 0)
-    {
-        next_oper = '-';
-    }
-    else if(user_exp.IndexOf('-')<0)
-    {
-        next_oper = '+';
-    }
+//    if (user_exp.IndexOf('+') > 0 && user_exp.IndexOf('-') > 0) 
+//    {
+//        if (user_exp.IndexOf('+') > user_exp.IndexOf('-'))
+//        {
+//            next_oper = '-';
+//        }
+//        else
+//        {
+//            next_oper = '+';
+//        }
+//    }
+//    else if(user_exp.IndexOf('+') < 0 && user_exp.IndexOf('-') < 0)
+//    {
+//        break;
+//    }
+//    else if (user_exp.IndexOf('+') < 0)
+//    {
+//        next_oper = '-';
+//    }
+//    else if(user_exp.IndexOf('-')<0)
+//    {
+//        next_oper = '+';
+//    }
 
-    if (oper == true)
-    {
-        for (int i = 0; user_exp.IndexOf(next_oper) != i; i++)
-        {
-            curr_numb[i] = user_exp[i];
-            op_indx = i;
-        }
+//    if (oper == true)
+//    {
+//        for (int i = 0; user_exp.IndexOf(next_oper) != i; i++)
+//        {
+//            curr_numb[i] = user_exp[i];
+//            op_indx = i;
+//        }
 
-        user_exp.CopyTo(0, curr_numb, 0, op_indx);
+//        user_exp.CopyTo(0, curr_numb, 0, op_indx);
 
-        op_res += int.Parse(curr_numb);
+//        op_res += int.Parse(curr_numb);
 
-        user_exp = user_exp.Remove(0, op_indx+1);
-    }
-    else
-    {
-        for (int i = 0; user_exp.IndexOf(next_oper)!=i; i++)
-        {
-            curr_numb[i] = user_exp[i];
-            op_indx = i;
-        }
+//        user_exp = user_exp.Remove(0, op_indx+1);
+//    }
+//    else
+//    {
+//        for (int i = 0; user_exp.IndexOf(next_oper)!=i; i++)
+//        {
+//            curr_numb[i] = user_exp[i];
+//            op_indx = i;
+//        }
 
-        user_exp.CopyTo(1, curr_numb, 0, op_indx);
+//        user_exp.CopyTo(1, curr_numb, 0, op_indx);
 
-        op_res -= int.Parse(curr_numb);
+//        op_res -= int.Parse(curr_numb);
 
-        user_exp = user_exp.Remove(0, op_indx+1);
-    }
-}
+//        user_exp = user_exp.Remove(0, op_indx+1);
+//    }
+//}
 
-if(oper == true)
-{
-    op_res += int.Parse(user_exp);
-}
-else
-{
+//if(oper == true)
+//{
+//    op_res += int.Parse(user_exp);
+//}
+//else
+//{
     
-    op_res -= int.Parse(user_exp);
-}
+//    op_res -= int.Parse(user_exp);
+//}
 
-// ZADANIE 6
+//// ZADANIE 6
 
-/*
+///*
 
-Пользователь с клавиатуры вводит некоторый текст.
-Приложение должно изменять регистр первой буквы
-каждого предложения на букву в верхнем регистре.
+//Пользователь с клавиатуры вводит некоторый текст.
+//Приложение должно изменять регистр первой буквы
+//каждого предложения на букву в верхнем регистре.
 
-Например, если пользователь ввёл: «today is a good
-day for walking. i will try to walk near the sea».
-Результат работы приложения: «Today is a good day
-for walking. I will try to walk near the sea».
+//Например, если пользователь ввёл: «today is a good
+//day for walking. i will try to walk near the sea».
+//Результат работы приложения: «Today is a good day
+//for walking. I will try to walk near the sea».
 
-*/
+//*/
 
-WriteLine($"{op_res}\n\nВведите предложения, регистр первых букв которых нужно исправить на верхний: ");
+//WriteLine($"{op_res}\n\nВведите предложения, регистр первых букв которых нужно исправить на верхний: ");
 
-string str_text = ReadLine();
-char[] str_text_but_chared = str_text.ToCharArray();
+//string str_text = ReadLine();
+//char[] str_text_but_chared = str_text.ToCharArray();
 
-// проверка на регистр первой буквы строки
-if(str_text_but_chared[0] > 96 && str_text_but_chared[0] < 123)
-{
-    str_text_but_chared[0] = (char)(str_text[0] - 32);
-}
+//// проверка на регистр первой буквы строки
+//if(str_text_but_chared[0] > 96 && str_text_but_chared[0] < 123)
+//{
+//    str_text_but_chared[0] = (char)(str_text[0] - 32);
+//}
 
-// проверка на начало нового предложения и на то,
-// не написана ли первая буква уже верхним регистром
+//// проверка на начало нового предложения и на то,
+//// не написана ли первая буква уже верхним регистром
 
-for (int i = 0; i < str_text.Length; i++) 
-{
-    if (str_text_but_chared[i] == '.' && str_text_but_chared[i + 1] == ' ' && str_text_but_chared[i + 2] > 96 && str_text_but_chared[i + 2] < 123) 
-    {
-        str_text_but_chared[i + 2] = (char)(str_text[i + 2] - 32);
-    }
-}
+//for (int i = 0; i < str_text.Length; i++) 
+//{
+//    if (str_text_but_chared[i] == '.' && str_text_but_chared[i + 1] == ' ' && str_text_but_chared[i + 2] > 96 && str_text_but_chared[i + 2] < 123) 
+//    {
+//        str_text_but_chared[i + 2] = (char)(str_text[i + 2] - 32);
+//    }
+//}
 
-WriteLine("Получившийся текст: ");
-Write(str_text_but_chared);
+//WriteLine("Получившийся текст: ");
+//Write(str_text_but_chared);
 
 // ZADANIE 7
 
+string user_text = "To be, or not to be, that is the question,\r\nWhether 'tis nobler in the mind to suffer\r\nThe slings and arrows of outrageous fortune,\r\nOr to take arms against a sea of troubles,\r\nAnd by opposing end them? To die: to sleep;\r\nNo more; and by a sleep to say we end\r\nThe heart-ache and the thousand natural shocks\r\nThat flesh is heir to, 'tis a consummation\r\nDevoutly to be wish'd. To die, to sleep.";
+string user_text_new;
+string unnac_word = "die";
+string stars = "*";
+int words_amount = 0;
 
+for(int i = 0; i<unnac_word.Length-1;i++)
+{
+    stars += '*';
+}
+
+user_text_new = user_text.Replace(unnac_word, stars);
+
+words_amount = (user_text.Length - user_text_new.Length) / unnac_word.Length;
+
+WriteLine($"{ user_text_new}\n\n{words_amount}");
 
 public enum Ops { SUMM = 1, SUBT, MULT };
