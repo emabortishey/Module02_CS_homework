@@ -6,559 +6,727 @@ using System.Text;
 using static System.Console;
 using static System.Net.Mime.MediaTypeNames;
 
-//// ZADANIE 1
-
-///* 
-
-//Объявить одномерный(5 элементов) массив с именем A и двумерный массив 
-//(3 строки, 4 столбца) дробных чисел с именем B. Заполнить одномерный массив
-//А числами, введенными с клавиатуры пользователем, а
-//двумерный массив В случайными числами с помощью
-//циклов. Вывести на экран значения массивов: массива
-//А в одну строку, массива В — в виде матрицы. Найти в
-//данных массивах общий максимальный элемент, минимальный элемент, общую сумму всех элементов, общее
-//произведение всех элементов, сумму четных элементов
-//массива А, сумму нечетных столбцов массива В. 
-
-//*/
-
-//int[] A = new int[5];
-//double[,] B = new double[3,4];
-//Random random = new Random();
-
-//WriteLine("Заполните значения массива А:\n\n");
-
-//for (int i = 0; i < A.Length; i++)
-//{
-//    WriteLine($"Введите число под индексом {i}: ");
-//    A[i] = Convert.ToInt32(ReadLine());
-//}
-
-//for(int i = 0;i < B.GetLength(0);i++)
-//{
-//    for(int j = 0;j < B.GetLength(1); j++)
-//    {
-//        B[i, j] = Math.Round(random.NextDouble()*100, 1);
-//    }
-//}
-
-//WriteLine("\n\nПервый массив: ");
-
-//for (int i = 0; i < A.Length; i++)
-//{
-//    Write(A[i] + " ");
-//}
-
-
-//WriteLine("\n\nВторой массив: ");
-
-//for (int i = 0; i < B.GetLength(0); i++)
-//{
-//    for (int j = 0; j < B.GetLength(1); j++)
-//    {
-//        Write(B[i, j] + " ");
-//    }
-//    WriteLine();
-//}
-
-//double summD = 0;
-//double maxD = B[0, 0];
-//double multD = 1;
-//double unevenCOLsummD = 0;
-
-//int evensumm = 0;
-
-//// для нахождения суммы элементов, нечетных столбцов, произведения и макс. числа я просто использовала 1 цикл 
-//// т.к. лень было искать функции для матриц или пытаться эксперементировать с aggregate 
-//for (int i = 0; i < B.GetLength(0); i++)
-//{
-//    for (int j = 0; j < B.GetLength(1); j++)
-//    {
-//        summD += B[i, j];
-//        multD *= B[i, j];
-
-//        if (B[i, j] > maxD)
-//        {
-//            maxD = B[i, j];
-//        }
-
-//        if(i%2!=0)
-//        {
-//            unevenCOLsummD += B[i, j];
-//        }
-//    }
-//}
-
-//for(int i = 0; i < A.Length; i+=2)
-//{
-//    evensumm += A[i];
-//}
-
-//WriteLine($"Максимальный элемент массива А: {A.Max()}");
-//WriteLine($"Максимальный элемент массива B: {maxD}");
-//WriteLine($"Сумма всех элементов массива А: {A.Aggregate((x, y) => x + y)}");
-//WriteLine($"Сумма всех элементов массива B: {summD}");
-//WriteLine($"Произведение всех элементов массива А: {A.Aggregate((x, y) => x * y)}");
-//WriteLine($"Произведение всех элементов массива B: {multD}");
-//WriteLine($"Сумма всех элементов с чётным индексом массива А: {evensumm}");
-//WriteLine($"Сумма всех элементов столбцов с нечётным индексом массива B: {unevenCOLsummD}");
-
-//// ZADANIE 2
-
-///*
- 
-//Дан двумерный массив размерностью 5×5, заполненный 
-//случайными числами из диапазона от –100 до 100.
-//Определить сумму элементов массива, расположенных
-//между минимальным и максимальным элементами
-
-//*/
-
-//int[,] mass5x5 = new int[5, 5];
-//int maxCOL = 0, maxROW = 0, minCOL = 0, minROW = 0;
-//int summ5x5 = 0;
-//bool check = false;
-
-//WriteLine("Массив 5x5: ");
-
-//for (int i = 0; i < 5; i++) 
-//{
-//    for (int j = 0; j < 5; j++)
-//    {
-//        mass5x5[i, j] = random.Next(-100, 100);
-
-//        Write(mass5x5[i, j]+" ");
-
-//        if(mass5x5[i, j] < mass5x5[minCOL, minROW])
-//        {
-//            minCOL = i;
-//            minROW = j;
-//        }
-//        if (mass5x5[i, j] > mass5x5[maxCOL, maxROW]) 
-//        {
-//            maxCOL = i;
-//            maxROW = j;
-//        }
-//    }
-//    WriteLine();
-//}
-
-//WriteLine($"Максимальным элементом массива является {mass5x5[maxCOL, maxROW]}, а минимальным {mass5x5[minCOL, minROW]}");
-
-//if (maxCOL > minCOL && maxROW > minROW || maxCOL >= minCOL && maxROW > minROW || maxCOL > minCOL && maxROW >= minROW)
-//{
-//    for (int i = 0; i < 5; i++)
-//    {
-//        for (int j = 0; j < 5; j++)
-//        {
-//            if (mass5x5[i, j] == mass5x5[minCOL, minROW])
-//            {
-//                check = true;
-//            }
-//            if (mass5x5[i, j] == mass5x5[maxCOL, maxROW])
-//            {
-//                check = false;
-//                summ5x5 += mass5x5[maxCOL, maxROW];
-
-//                i = 5;
-//                j = 5;
-//            }
-
-//            if(check == true)
-//            {
-//                summ5x5 += mass5x5[i, j];
-//            }
-//        }
-//    }
-//}
-
-//else if (maxCOL < minCOL && maxROW < minROW || maxCOL <= minCOL && maxROW < minROW || maxCOL < minCOL && maxROW <= minROW)
-//{
-//    for (int i = 0; i < 5; i++)
-//    {
-//        for (int j = 0; j < 5; j++)
-//        {
-//            if (mass5x5[i, j] == mass5x5[maxCOL, maxROW])
-//            {
-//                check = true;
-//            }
-//            if (mass5x5[i, j] == mass5x5[minCOL, minROW])
-//            {
-//                check = false;
-//                summ5x5 += mass5x5[minCOL, minROW];
-
-//                i = 5;
-//                j = 5;
-//            }
-
-//            if (check == true)
-//            {
-//                summ5x5 += mass5x5[i, j];
-//            }
-//        }
-//    }
-//}
-
-//WriteLine($"Сумма всех чисел между индексами макс и мин. элементов равна {summ5x5} \n\nВведите строку которую нужно зашифровать: ");
-
-//// ZADANIE 3
-
-///*
-
-// Пользователь вводит строку с клавиатуры. Необходимо зашифровать данную строку используя шифр Цезаря.
-//Из Википедии:
-
-//Шифр Цезаря — это вид шифра подстановки, в котором 
-//каждый символ в открытом тексте заменяется
-//символом, находящимся на некотором постоянном числе
-//позиций левее или правее него в алфавите. Например,
-//в шифре со сдвигом вправо на 3, A была бы заменена на
-//D, B станет E, и так далее.
-//Подробнее тут: https://en.wikipedia.org/wiki/Caesar_cipher.
-//Кроме механизма шифровки, реализуйте механизм
-//расшифрования.
-
-//*/
-
-//string user_str = ReadLine();
-//char[] user_char_str = new char[user_str.Length + 1];
-
-//// тут как при шифровке так и при дешифровке идёт проверка (то есть если
-//// при шифровке со сдвигом вправа на 3 как я и сделала, в тексте будет
-//// буква xyz то сдвиг не пойдёт в символы, а перейдёт в начало алфавита
-//// и также будет и при дешифровке, abc перейдут в конец алфавита а не в символы
-//// и данная схема распространяется на оба регистра
-//for(int i = 0; i< user_str.Length; i++)
-//{
-//    if ((int)(user_str[i]) == 88 || (int)(user_str[i]) == 89 || (int)(user_str[i]) == 90)
-//    {
-//        user_char_str[i] = (char)(64 + (4 + ((int)(user_str[i])-91)));
-//    }
-//    else if ((int)(user_str[i]) == 120 || (int)(user_str[i]) == 121 || (int)(user_str[i]) == 122)
-//    {
-//        user_char_str[i] = (char)(96 + (4 + ((int)(user_str[i]) - 123)));
-//    }
-//    else
-//    {
-//        user_char_str[i] = (char)(user_str[i] + 3);
-//    }
-//}
-
-//// тут я не уместила все выводы в writeline потому что при
-//// попытке прописать как через $ так и через + в одной такой
-//// конструкции у меня выводилось что-то вроде
-//// System.Char[] вместо самой строки даже при попытке
-//// прописать user_char_str.ToArray()
-
-//WriteLine("\nЗашифрованная строка: ");
-//Write(user_char_str);
-//WriteLine("\nВведите строку которую нужно расшифровать: ");
-
-//user_str = ReadLine();
-
-//for (int i = 0; i < user_str.Length; i++)
-//{
-//    if ((int)(user_str[i]) == 65 || (int)(user_str[i]) == 66 || (int)(user_str[i]) == 67)
-//    {
-//        user_char_str[i] = (char)(91 - (4 - ((int)(user_str[i]) - 64)));
-//    }
-//    else if((int)(user_str[i]) == 97 || (int)(user_str[i]) == 98 || (int)(user_str[i]) == 99)
-//    {
-//        user_char_str[i] = (char)(123 - (4 - ((int)(user_str[i]) - 96)));
-//    }
-//    else
-//    {
-//        user_char_str[i] = (char)(user_str[i] - 3);
-//    }
-//}
-
-//WriteLine("\nРасшифрованная строка: ");
-//Write(user_char_str);
-
-//// ZADANIE 4
-
-///*
- 
-//Создайте приложение, которое производит операции
-//над матрицами:
-//■ Умножение матрицы на число;
-//■ Сложение матриц;
-//■ Произведение матриц
- 
-// */
-
-//const int size = 2;
-//int[,] A_matrix = new int[size, size] { { 1, 2 }, { 3, 4 } };
-//int[,] B_matrix = new int[size, size] { { 5, 6 }, { 7, 8 } };
-
-//int[,] Result = new int[size, size];
-
-//int user_choice;
-
-//WriteLine("\nМатрица A:\n");
-
-//for (int i = 0; i < size; i++)
-//{
-//    for (int j = 0; j < size; j++)
-//    {
-//        Write(A_matrix[i, j]+" ");
-//    }
-//    WriteLine();
-//}
-
-//WriteLine("Матрица B:\n");
-
-//for (int i = 0; i < size; i++)
-//{
-//    for (int j = 0; j < size; j++)
-//    {
-//        Write(B_matrix[i, j]+" ");
-//    }
-//    WriteLine();
-//}
-
-//WriteLine("\nВведите число в зависимости от вашего выбора действия над  матрицами А и В:\n1.Сложить\nВычесть\n3.Умножить\n\n");
-
-//user_choice = Convert.ToInt32(ReadLine());
-
-//WriteLine("\nРезультат: ");
-
-//switch(user_choice)
-//{
-//    case (int)Ops.SUMM:
-//        {
-//            for (int i = 0; i < size; i++) 
-//            {
-//                for (int j = 0; j < size; j++) 
-//                {
-//                    Result[i, j] = A_matrix[i, j] + B_matrix[i, j];
-//                }
-//            }
-//            break;
-//        }
-//    case (int)Ops.SUBT:
-//        {
-//            for (int i = 0; i < size; i++) 
-//            {
-//                for (int j = 0; j < size; j++) 
-//                {
-//                    Result[i, j] = A_matrix[i, j] - B_matrix[i, j];
-//                }
-//            }
-//            break;
-//        }
-//    case (int)Ops.MULT:
-//        {
-//            for (int i = 0; i < size; i++)
-//            {
-//                for (int j = 0; j < size; j++)
-//                {
-//                    for (int k = 0; k < size; k++)
-//                    {
-//                        Result[i,j] += A_matrix[i,k] * B_matrix[k,j];
-//                    }
-
-//                    Write(Result[i, j]+" ");
-//                }
-//                WriteLine();
-//            }
-
-//            break;
-//        }
-//} 
-
-//// ZADANIE 5
-
-///*
-
-//Пользователь с клавиатуры вводит в строку арифметическое 
-//выражение. Приложение должно посчитать его результат.
-//Необходимо поддерживать только две операции: + и –.
-
-//*/
-
-//WriteLine("Введите математическое выражние для вычисления: ");
-
-//string user_exp = ReadLine();
-//char[] chared_exp = new char[user_exp.Length];
-//char[] buff_chared_exp;
-//string buff_exp;
-//char[] curr_numb = new char[user_exp.Length];
-//char[] curr_numb2 = new char[user_exp.Length];
-//string curr_numb_str;
-//int next_numb_index = 0;
-//int counter = 0;
-//bool oper = false;
-//char next_oper = '-';
-//int op_res = 0;
-//int curr = 0;
-//int op_indx = 0;
-
-//// убираем пробелы в случа если пользователь ввёл
-//// выражение кое-как и поставил их не везде, чтобы
-//// было легче отделять +, - и числа при выполнении
-
-//foreach(char buff in user_exp)
-//{
-//    if(buff== ' ')
-//    {
-//        user_exp = user_exp.Remove(counter, 1);
-//    }
-//        counter++;
-//}
-
-//counter = 0;
-
-//if (user_exp[0] != '-') 
-//{
-//    user_exp = user_exp.Insert(0, "+");
-//}
-
-//while (user_exp.IndexOf('-') == 0 || user_exp.IndexOf('+') == 0) 
-//{
-//    if(user_exp.IndexOf('-') == 0)
-//    {
-//        oper = false;
-//    }
-//    else if(user_exp.IndexOf('+') == 0)
-//    {
-//        oper = true;
-//    }
-
-//    user_exp = user_exp.Remove(0, 1);
-
-//    if (user_exp.IndexOf('+') > 0 && user_exp.IndexOf('-') > 0) 
-//    {
-//        if (user_exp.IndexOf('+') > user_exp.IndexOf('-'))
-//        {
-//            next_oper = '-';
-//        }
-//        else
-//        {
-//            next_oper = '+';
-//        }
-//    }
-//    else if(user_exp.IndexOf('+') < 0 && user_exp.IndexOf('-') < 0)
-//    {
-//        break;
-//    }
-//    else if (user_exp.IndexOf('+') < 0)
-//    {
-//        next_oper = '-';
-//    }
-//    else if(user_exp.IndexOf('-')<0)
-//    {
-//        next_oper = '+';
-//    }
-
-//    if (oper == true)
-//    {
-//        for (int i = 0; user_exp.IndexOf(next_oper) != i; i++)
-//        {
-//            curr_numb[i] = user_exp[i];
-//            op_indx = i;
-//        }
-
-//        user_exp.CopyTo(0, curr_numb, 0, op_indx);
-
-//        op_res += int.Parse(curr_numb);
-
-//        user_exp = user_exp.Remove(0, op_indx+1);
-//    }
-//    else
-//    {
-//        for (int i = 0; user_exp.IndexOf(next_oper)!=i; i++)
-//        {
-//            curr_numb[i] = user_exp[i];
-//            op_indx = i;
-//        }
-
-//        user_exp.CopyTo(1, curr_numb, 0, op_indx);
-
-//        op_res -= int.Parse(curr_numb);
-
-//        user_exp = user_exp.Remove(0, op_indx+1);
-//    }
-//}
-
-//if(oper == true)
-//{
-//    op_res += int.Parse(user_exp);
-//}
-//else
-//{
-    
-//    op_res -= int.Parse(user_exp);
-//}
-
-//// ZADANIE 6
-
-///*
-
-//Пользователь с клавиатуры вводит некоторый текст.
-//Приложение должно изменять регистр первой буквы
-//каждого предложения на букву в верхнем регистре.
-
-//Например, если пользователь ввёл: «today is a good
-//day for walking. i will try to walk near the sea».
-//Результат работы приложения: «Today is a good day
-//for walking. I will try to walk near the sea».
-
-//*/
-
-//WriteLine($"{op_res}\n\nВведите предложения, регистр первых букв которых нужно исправить на верхний: ");
-
-//string str_text = ReadLine();
-//char[] str_text_but_chared = str_text.ToCharArray();
-
-//// проверка на регистр первой буквы строки
-//if(str_text_but_chared[0] > 96 && str_text_but_chared[0] < 123)
-//{
-//    str_text_but_chared[0] = (char)(str_text[0] - 32);
-//}
-
-//// проверка на начало нового предложения и на то,
-//// не написана ли первая буква уже верхним регистром
-
-//for (int i = 0; i < str_text.Length; i++) 
-//{
-//    if (str_text_but_chared[i] == '.' && str_text_but_chared[i + 1] == ' ' && str_text_but_chared[i + 2] > 96 && str_text_but_chared[i + 2] < 123) 
-//    {
-//        str_text_but_chared[i + 2] = (char)(str_text[i + 2] - 32);
-//    }
-//}
-
-//WriteLine("Получившийся текст: ");
-//Write(str_text_but_chared);
+// ZADANIE 1
+
+/* 
+
+Объявить одномерный(5 элементов) массив с именем A и двумерный массив 
+(3 строки, 4 столбца) дробных чисел с именем B. Заполнить одномерный массив
+А числами, введенными с клавиатуры пользователем, а
+двумерный массив В случайными числами с помощью
+циклов. Вывести на экран значения массивов: массива
+А в одну строку, массива В — в виде матрицы. Найти в
+данных массивах общий максимальный элемент, минимальный элемент, общую сумму всех элементов, общее
+произведение всех элементов, сумму четных элементов
+массива А, сумму нечетных столбцов массива В. 
+
+*/
+
+int[] A = new int[5];
+double[,] B = new double[3, 4];
+// я пиисала это до того, как вы показали более простой способ
+// использования рандома на паре, поэтому решила оставить так
+Random random = new Random();
+
+WriteLine("Заполните значения массива А:\n\n");
+
+// последовательный запрос у пользователя значений под каждым индексом
+for (int i = 0; i < A.Length; i++)
+{
+    WriteLine($"Введите число под индексом {i}: ");
+    A[i] = Convert.ToInt32(ReadLine());
+}
+
+// заполнение матрицы рандомными числами 
+// (т.к. рандом в этом способе от 0 до 1,
+// я умножала на 100 и с помощью метода
+// round библиотеки math
+// округляла до 1 числа после запятой
+for (int i = 0; i < B.GetLength(0); i++)
+{
+    for (int j = 0; j < B.GetLength(1); j++)
+    {
+        B[i, j] = Math.Round(random.NextDouble() * 100, 1);
+    }
+}
+
+// вывод массива и матрицы
+
+WriteLine("\n\nПервый массив: ");
+
+for (int i = 0; i < A.Length; i++)
+{
+    Write(A[i] + " ");
+}
+
+
+WriteLine("\n\nВторой массив: ");
+
+for (int i = 0; i < B.GetLength(0); i++)
+{
+    for (int j = 0; j < B.GetLength(1); j++)
+    {
+        Write(B[i, j] + " ");
+    }
+    WriteLine();
+}
+
+// переменные в которых будет храниться результат вычислений
+// проводимях с матрицей (D после имени для понимания что они
+// относятся к этой матрице, т.к. ее тип double)
+double summD = 0;
+double maxD = B[0, 0];
+double multD = 1;
+double unevenCOLsummD = 0;
+
+// переменная содержащая сумму чётных чисел массива А
+// т.к. эту операцию невозможно сделать прямо при выводе
+int evensumm = 0;
+
+// для нахождения суммы элементов, нечетных столбцов, произведения и макс. числа я просто использовала 1 цикл 
+// т.к. лень было искать функции для матриц или пытаться эксперементировать с aggregate 
+// поэтому все операции умещены в 1 кучу
+for (int i = 0; i < B.GetLength(0); i++)
+{
+    for (int j = 0; j < B.GetLength(1); j++)
+    {
+        summD += B[i, j];
+        multD *= B[i, j];
+
+        if (B[i, j] > maxD)
+        {
+            maxD = B[i, j];
+        }
+
+        if (i % 2 != 0)
+        {
+            unevenCOLsummD += B[i, j];
+        }
+    }
+}
+
+// цикл нахождения суммы всех чётных элементов массива А
+for (int i = 0; i < A.Length; i += 2)
+{
+    evensumm += A[i];
+}
+
+// вывод результатов
+WriteLine($"Максимальный элемент массива А: {A.Max()}");
+WriteLine($"Максимальный элемент массива B: {maxD}");
+WriteLine($"Сумма всех элементов массива А: {A.Aggregate((x, y) => x + y)}");
+WriteLine($"Сумма всех элементов массива B: {summD}");
+WriteLine($"Произведение всех элементов массива А: {A.Aggregate((x, y) => x * y)}");
+WriteLine($"Произведение всех элементов массива B: {multD}");
+WriteLine($"Сумма всех элементов с чётным индексом массива А: {evensumm}");
+WriteLine($"Сумма всех элементов столбцов с нечётным индексом массива B: {unevenCOLsummD}");
+
+// ZADANIE 2
+
+/*
+
+Дан двумерный массив размерностью 5×5, заполненный 
+случайными числами из диапазона от –100 до 100.
+Определить сумму элементов массива, расположенных
+между минимальным и максимальным элементами
+
+*/
+
+// сам массив
+int[,] mass5x5 = new int[5, 5];
+
+// переменные индексов макс. и мин. элементов
+// (хотела использовать класс pair но не нашла информацию
+// и решила не заморачиваться и использовать по 2 переменные)
+int maxCOL = 0, maxROW = 0, minCOL = 0, minROW = 0;
+// переменная в которую будет записана сумма
+int summ5x5 = 0;
+// переменная для проверки при сложении (дошёл ли цикл до первой
+// границы (неизвестно точно первее макс. или мин. значение)
+bool check = false;
+
+WriteLine("Массив 5x5: ");
+
+// происходит инициализация массива, его вывод и
+// в этом же цикле поиск мин. и макс. индексов
+for (int i = 0; i < 5; i++)
+{
+    for (int j = 0; j < 5; j++)
+    {
+        mass5x5[i, j] = random.Next(-100, 100);
+
+        Write(mass5x5[i, j] + " ");
+
+        if (mass5x5[i, j] < mass5x5[minCOL, minROW])
+        {
+            minCOL = i;
+            minROW = j;
+        }
+        if (mass5x5[i, j] > mass5x5[maxCOL, maxROW])
+        {
+            maxCOL = i;
+            maxROW = j;
+        }
+    }
+    WriteLine();
+}
+
+// вывод мин. и макс. элементов
+WriteLine($"Максимальным элементом массива является {mass5x5[maxCOL, maxROW]}, а минимальным {mass5x5[minCOL, minROW]}");
+
+// не помню что к чему в условиях, но сам иф и элс иф
+// выполняет проверку на то, какой элемент первее -
+// максимальный или минимальный, а условий так много
+// изза того что они могут находиться на 1 строке в разном ряду
+// и в 1 ряду на разной строке и просто так определить не получится
+if (maxCOL > minCOL && maxROW > minROW || maxCOL >= minCOL && maxROW > minROW || maxCOL > minCOL && maxROW >= minROW)
+{
+    // (этот вариант отображает если минимальный элемент
+    // первее максимального)
+
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            // т.к. при нахождении мин. и макс. элементов
+            // он меняет значение только если сверяемое значение
+            // больше текущего, то допустим если в строке 
+            // при поиске макс. элемента, есть 2 элемента 100,
+            // и они оба максимальные, то в индексы макс. элемента
+            // будет записано первое вхождение 100 в матрице, а значит
+            // определить вошли мы в диапазон или нет можно сверив текущее
+            // значение, также как и вышли ли мы из него
+
+            // если мин. элемент найден, переменная провекри становится тру
+            if (mass5x5[i, j] == mass5x5[minCOL, minROW])
+            {
+                check = true;
+            }
+
+            // если текущее значение доходит до макс. элемента
+            // то он прибавляется к сумме и цикл форсирует своё закрытие
+            // с помощью присвоения счётчикам максимальных значений
+            // (т.к. у меня проблемы с ключевым словом break и я не знаю, выйдет
+            // ли он с обоих конструкций и завершит ли все циклы или только 
+            // вложенный из них, я использовала присвоение счётчикам)
+            if (mass5x5[i, j] == mass5x5[maxCOL, maxROW])
+            {
+                check = false;
+                summ5x5 += mass5x5[maxCOL, maxROW];
+
+                i = 5;
+                j = 5;
+            }
+
+            // пока мы в диапазоне, идёт прибавление
+            if (check == true)
+            {
+                summ5x5 += mass5x5[i, j];
+            }
+        }
+    }
+}
+
+// (по сути то же самое, только в случае если у
+// нас макс. элемент стоит первее минимального)
+else if (maxCOL < minCOL && maxROW < minROW || maxCOL <= minCOL && maxROW < minROW || maxCOL < minCOL && maxROW <= minROW)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if (mass5x5[i, j] == mass5x5[maxCOL, maxROW])
+            {
+                check = true;
+            }
+            if (mass5x5[i, j] == mass5x5[minCOL, minROW])
+            {
+                check = false;
+                summ5x5 += mass5x5[minCOL, minROW];
+
+                i = 5;
+                j = 5;
+            }
+
+            if (check == true)
+            {
+                summ5x5 += mass5x5[i, j];
+            }
+        }
+    }
+}
+
+// вывод суммы
+WriteLine($"Сумма всех чисел между индексами макс и мин. элементов равна {summ5x5} \n\nВведите строку которую нужно зашифровать: ");
+
+// ZADANIE 3
+
+/*
+
+ Пользователь вводит строку с клавиатуры. Необходимо зашифровать данную строку используя шифр Цезаря.
+Из Википедии:
+
+Шифр Цезаря — это вид шифра подстановки, в котором 
+каждый символ в открытом тексте заменяется
+символом, находящимся на некотором постоянном числе
+позиций левее или правее него в алфавите. Например,
+в шифре со сдвигом вправо на 3, A была бы заменена на
+D, B станет E, и так далее.
+Подробнее тут: https://en.wikipedia.org/wiki/Caesar_cipher.
+Кроме механизма шифровки, реализуйте механизм
+расшифрования.
+
+*/
+
+string user_str = ReadLine();
+char[] user_char_str = new char[user_str.Length + 1];
+
+// тут как при шифровке так и при дешифровке идёт проверка (то есть если
+// при шифровке со сдвигом вправа на 3 как я и сделала, в тексте будет
+// буква xyz то сдвиг не пойдёт в символы, а перейдёт в начало алфавита
+// и также будет и при дешифровке, abc перейдут в конец алфавита а не в символы
+// и данная схема распространяется на оба регистра
+for (int i = 0; i < user_str.Length; i++)
+{
+    // если мы в конце алфавита и попадаем на буквы xyz то идёт
+    // шифровка буквами с его начала
+    if ((int)(user_str[i]) == 88 || (int)(user_str[i]) == 89 || (int)(user_str[i]) == 90)
+    {
+        user_char_str[i] = (char)(64 + (4 + ((int)(user_str[i]) - 91)));
+    }
+    // то же самое что и предыдущее только если у букв нижний регистр
+    else if ((int)(user_str[i]) == 120 || (int)(user_str[i]) == 121 || (int)(user_str[i]) == 122)
+    {
+        user_char_str[i] = (char)(96 + (4 + ((int)(user_str[i]) - 123)));
+    }
+    // если мы находимся не с краю
+    else
+    {
+        user_char_str[i] = (char)(user_str[i] + 3);
+    }
+}
+
+// тут я не уместила все выводы в writeline потому что при
+// попытке прописать как через $ так и через + в одной такой
+// конструкции у меня выводилось что-то вроде
+// System.Char[] вместо самой строки даже при попытке
+// прописать user_char_str.ToArray()
+
+// вывод зашифрованной строки
+WriteLine("\nЗашифрованная строка: ");
+Write(user_char_str);
+WriteLine("\nВведите строку которую нужно расшифровать: ");
+
+user_str = ReadLine();
+
+for (int i = 0; i < user_str.Length; i++)
+{
+    // тут происходит то же самое что и при шифровании, только проверка
+    // на то, если текущий символ находится не в конце, а в начале,
+    // т.к. при дешифровке мы двигаемся уже на лево
+    if ((int)(user_str[i]) == 65 || (int)(user_str[i]) == 66 || (int)(user_str[i]) == 67)
+    {
+        user_char_str[i] = (char)(91 - (4 - ((int)(user_str[i]) - 64)));
+    }
+    else if ((int)(user_str[i]) == 97 || (int)(user_str[i]) == 98 || (int)(user_str[i]) == 99)
+    {
+        user_char_str[i] = (char)(123 - (4 - ((int)(user_str[i]) - 96)));
+    }
+    else
+    {
+        user_char_str[i] = (char)(user_str[i] - 3);
+    }
+}
+
+// вывод расшифрованной строки
+WriteLine("\nРасшифрованная строка: ");
+Write(user_char_str);
+
+// ZADANIE 4
+
+/*
+
+Создайте приложение, которое производит операции
+над матрицами:
+■ Умножение матрицы на число;
+■ Сложение матриц;
+■ Произведение матриц
+
+ */
+
+// переменная размера для большей ясности и более лёгких
+// тестов с увеличенной матрицей (я взяла одинаковые для
+// большей простоты так как при сложении и вычитании
+// одинаковый размер необходим и лишь при умножении
+// матрицы могут различаться, а это того не стоит)
+const int size = 2;
+// сами переменные матриц
+int[,] A_matrix = new int[size, size] { { 1, 2 }, { 3, 4 } };
+int[,] B_matrix = new int[size, size] { { 5, 6 }, { 7, 8 } };
+
+// результат матриц
+int[,] Result = new int[size, size];
+
+// переменная для работы с меню
+int user_choice;
+
+// вывод матриц для более понятного сравнения
+// правильности результата в консоли
+WriteLine("\nМатрица A:\n");
+
+for (int i = 0; i < size; i++)
+{
+    for (int j = 0; j < size; j++)
+    {
+        Write(A_matrix[i, j] + " ");
+    }
+    WriteLine();
+}
+
+WriteLine("Матрица B:\n");
+
+for (int i = 0; i < size; i++)
+{
+    for (int j = 0; j < size; j++)
+    {
+        Write(B_matrix[i, j] + " ");
+    }
+    WriteLine();
+}
+
+// работа с меню через enum
+WriteLine("\nВведите число в зависимости от вашего выбора действия над  матрицами А и В:\n1.Сложить\nВычесть\n3.Умножить\n\n");
+
+user_choice = Convert.ToInt32(ReadLine());
+
+WriteLine("\nРезультат: ");
+
+switch (user_choice)
+{
+    case (int)Ops.SUMM:
+        // тут все 3 кейса практически идентичны не считая умножения
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    Result[i, j] = A_matrix[i, j] + B_matrix[i, j];
+                }
+            }
+            break;
+        }
+    case (int)Ops.SUBT:
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    Result[i, j] = A_matrix[i, j] - B_matrix[i, j];
+                }
+            }
+            break;
+        }
+    case (int)Ops.MULT:
+        // умножение выполненое по формуле из интернета
+        // (я уже не помню как там и что, потому что делала
+        // ночью и лишь бы лечь пораньше тыкала на рандом пока
+        // не заработало по нужному алгоритму)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    for (int k = 0; k < size; k++)
+                    {
+                        Result[i, j] += A_matrix[i, k] * B_matrix[k, j];
+                    }
+
+                    Write(Result[i, j] + " ");
+                }
+                WriteLine();
+            }
+
+            break;
+        }
+}
+
+// ZADANIE 5
+
+/*
+
+Пользователь с клавиатуры вводит в строку арифметическое 
+выражение. Приложение должно посчитать его результат.
+Необходимо поддерживать только две операции: + и –.
+
+*/
+
+WriteLine("Введите математическое выражние для вычисления: ");
+
+// выражение передаваемое пользователем
+// (я сделала так чтобы он мог вводить строку с длинными
+// многократными вычислениями, потому что не поняла,
+// необходимо ли, но перестраховалась)
+string user_exp = ReadLine();
+// массив символов в который будет записываться текущее
+// число с которым будет выполняться операция
+char[] curr_numb = new char[user_exp.Length];
+// счётчик для циклов в котором одного недостаточно
+// а создавать второй цикл нет возможности
+int counter = 0;
+// оператор - знак стоящий перед числом
+bool oper = false;
+// следующий (честно не помню вообще зачем я создала
+// второй, хотя сделала я задание только недавно ночью,
+// но значит так было надо)
+char next_oper = '-';
+// результат операции
+int op_res = 0;
+// индекс на котором расположен следующий оператор
+// вроде испльзовался мной для очищения строки до
+// этого оператора (удаление числа над которым уже
+// проведено действие и укорочение выражения)
+int op_indx = 0;
+
+// убираем пробелы в случа если пользователь ввёл
+// выражение кое-как и поставил их не везде, чтобы
+// было легче отделять +, - и числа при выполнении
+
+// убираем пробелы если пользователь дурак
+// который допустим написал 1+ 2,
+// чтобы мне было проще отделять операторы от
+// самих чисел
+foreach (char buff in user_exp)
+{
+    if (buff == ' ')
+    {
+        user_exp = user_exp.Remove(counter, 1);
+    }
+    counter++;
+}
+
+counter = 0;
+
+// если перед первым числом не стоит знак -, то
+// ставим перед ним плюс для того чтобы понять
+// прибавлять первое число к результату или отнимать
+if (user_exp[0] != '-')
+{
+    user_exp = user_exp.Insert(0, "+");
+}
+
+// программа работает так что в начале выражения всегда есть
+// какой-то знак, и он убирается тольео после проверки и перед
+// вычислением текущего числа, поэтому цикл  по факту
+// идёт пока в выражении есть хоть что-то что можно считать
+while (user_exp.IndexOf('-') == 0 || user_exp.IndexOf('+') == 0)
+{
+    // в зависимости от знака оперу присваивается значение
+    if (user_exp.IndexOf('-') == 0)
+    {
+        oper = false;
+    }
+    else if (user_exp.IndexOf('+') == 0)
+    {
+        oper = true;
+    }
+
+    // удаление этого знака перед вычислениями
+    user_exp = user_exp.Remove(0, 1);
+
+    // если в выражении есть и - и +
+    if (user_exp.IndexOf('+') > 0 && user_exp.IndexOf('-') > 0)
+    {
+        // определение следующего знака чтобы понимать до какого
+        // момента в переменную с числом записывать значения
+
+        // если присутствующий + дальше чем - то
+        // следующая операция -
+        if (user_exp.IndexOf('+') > user_exp.IndexOf('-'))
+        {
+            next_oper = '-';
+        }
+        // то же самое только с +
+        else
+        {
+            next_oper = '+';
+        }
+    }
+    // если отсутствуют какие-либо знаки, происходит выброс
+    // (далее после вайла оставшееся число юудет приплюсовано к сумме)
+    else if (user_exp.IndexOf('+') < 0 && user_exp.IndexOf('-') < 0)
+    {
+        break;
+    }
+    // если + отсуствует
+    else if (user_exp.IndexOf('+') < 0)
+    {
+        next_oper = '-';
+    }
+    // если отсутствует -
+    else if (user_exp.IndexOf('-') < 0)
+    {
+        next_oper = '+';
+    }
+
+    // если необходимая текущая операция +
+    if (oper == true)
+    {
+        // происходит запись в переменную содержащую
+        // текущее число до момента приткновения на символ
+        // следующей операции + попутный поиск индекса
+        for (int i = 0; user_exp.IndexOf(next_oper) != i; i++)
+        {
+            curr_numb[i] = user_exp[i];
+            op_indx = i;
+        }
+
+        user_exp.CopyTo(0, curr_numb, 0, op_indx);
+
+        // прибавка к результату нашего текущего числа
+        // которое у меня получилось конвертировать только
+        // с помощью этого ментода, т.к. обычный конверт 
+        // выдавал какую-то ошибку, не помню какую
+        op_res += int.Parse(curr_numb);
+
+        // вырезаем из выражения число с которым мы уже работали
+        user_exp = user_exp.Remove(0, op_indx + 1);
+    }
+    // если текущая операция - (то же самое только происходит вычитание)
+    else
+    {
+        for (int i = 0; user_exp.IndexOf(next_oper) != i; i++)
+        {
+            curr_numb[i] = user_exp[i];
+            op_indx = i;
+        }
+
+        user_exp.CopyTo(1, curr_numb, 0, op_indx);
+
+        op_res -= int.Parse(curr_numb);
+
+        user_exp = user_exp.Remove(0, op_indx + 1);
+    }
+}
+
+// операция проводимая с последним оставшимся числом
+// после того как сработал брик при проверке на присутствие знаков
+if (oper == true)
+{
+    op_res += int.Parse(user_exp);
+}
+else
+{
+
+    op_res -= int.Parse(user_exp);
+}
+
+// ZADANIE 6
+
+/*
+
+Пользователь с клавиатуры вводит некоторый текст.
+Приложение должно изменять регистр первой буквы
+каждого предложения на букву в верхнем регистре.
+
+Например, если пользователь ввёл: «today is a good
+day for walking. i will try to walk near the sea».
+Результат работы приложения: «Today is a good day
+for walking. I will try to walk near the sea».
+
+*/
+
+WriteLine($"Результат выражения: {op_res}\n\nВведите предложения, регистр первых букв которых нужно исправить на верхний: ");
+
+string str_text = ReadLine();
+// переменная с введённым текстом но в виде массива символов
+// для корректной работы с индексами
+char[] str_text_but_chared = str_text.ToCharArray();
+
+// проверка на регистр первой буквы строки
+// (т.к. основная проверка завязана на букве после
+// сочетания исмволов ". " то первую проверяем отдельно)
+if (str_text_but_chared[0] > 96 && str_text_but_chared[0] < 123)
+{
+    str_text_but_chared[0] = (char)(str_text[0] - 32);
+}
+
+// проверка на начало нового предложения и на то,
+// не написана ли первая буква уже верхним регистром
+
+for (int i = 0; i < str_text.Length; i++)
+{
+    // если текущий символ цикла равен . а следующий - пробелу, то
+    // последующему после пробела присваивается 
+    // по таблице аски значение меньшее на 32
+    if (str_text_but_chared[i] == '.' && str_text_but_chared[i + 1] == ' ' && str_text_but_chared[i + 2] > 96 && str_text_but_chared[i + 2] < 123)
+    {
+        str_text_but_chared[i + 2] = (char)(str_text[i + 2] - 32);
+    }
+}
+
+// вывод результата
+WriteLine("Получившийся текст: ");
+Write(str_text_but_chared);
 
 // ZADANIE 7
 
+/*
+ 
+Создайте приложение, проверяющее текст на недопустимые 
+слова. Если недопустимое слово найдено, оно
+должно быть заменено на набор символов *. По итогам
+работы приложения необходимо показать статистику
+действий. 
+ 
+ */
+
+// переменная с текстов
 string user_text = "Die. To be, or not to be, that is the question,\r\nWhether 'tis nobler in the mind to suffer\r\nThe slings and arrows of outrageous fortune,\r\nOr to take arms against a sea of troubles,\r\nAnd by opposing end them? To die: to sleep;\r\nNo more; and by a sleep to say we end\r\nThe heart-ache and the thousand natural shocks\r\nThat flesh is heir to, 'tis a consummation\r\nDevoutly to be wish'd. To die, to sleep.";
-string user_text_new;
+// недопустимое слово
 string unnac_word = "die";
+// строка которой в зависимости от 
+// длины недопустимого слова будут
+// присвоены звёздочки
 string stars = "*";
+// счётчик заменённых слов
 int words_amount = 0;
 
-for(int i = 0; i<unnac_word.Length-1;i++)
+// вывод изначального текста
+WriteLine($"\nТекст до замены: {user_text}");
+
+// заполнение строки необходимым количеством звёзд
+for (int i = 0; i<unnac_word.Length-1;i++)
 {
     stars += '*';
 }
 
-user_text_new = user_text.Replace(unnac_word, stars);
+// замена слова на звёздочки
+user_text = user_text.Replace(unnac_word, stars);
 
+// если первая буква недопустимого слова написана верхним регистром,
+// то происходит замена буквы на верхний регистр, чтобы исключить
+// недопустимое слово даже если оно написано с большой буквы
 if (unnac_word[0] >64 && unnac_word[0] < 91)
 {
     unnac_word = unnac_word.Replace(unnac_word[0], (char)(unnac_word[0] + 32));
 }
+// то же самое но еслипервая буква написана с нижнего регистра
 else if(unnac_word[0] > 96 && unnac_word[0] < 123)
 {
     unnac_word = unnac_word.Replace(unnac_word[0], (char)(unnac_word[0] - 32));
 }
 
-user_text_new = user_text_new.Replace(Convert.ToString(unnac_word), stars);
+// снова замена,только с изменённым регистром первой буквы
+user_text = user_text.Replace(Convert.ToString(unnac_word), stars);
 
-words_amount = (user_text_new.Count(f => f == '*') / stars.Length);
+// счётчик слов, который выполняется с помощью подсчёта 
+// вхождения строки звёздочек в текст
+words_amount = (user_text.Count(f => f == '*') / stars.Length);
 
-WriteLine($"{user_text_new}\n\n{words_amount}\n\n");
+// вывод всеё информации после замены
+WriteLine($"\n\nТекст после замены: {user_text}\n\nНедопустимое слово: {unnac_word}\n\nКоличество заменённых слов: {words_amount}\n\n");
 
+
+// перечисление котрое я использовала при работе
+// с матрицами в каком-то предыдщем задании
 public enum Ops { SUMM = 1, SUBT, MULT };
