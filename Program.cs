@@ -533,7 +533,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 // ZADANIE 7
 
-string user_text = "To be, or not to be, that is the question,\r\nWhether 'tis nobler in the mind to suffer\r\nThe slings and arrows of outrageous fortune,\r\nOr to take arms against a sea of troubles,\r\nAnd by opposing end them? To die: to sleep;\r\nNo more; and by a sleep to say we end\r\nThe heart-ache and the thousand natural shocks\r\nThat flesh is heir to, 'tis a consummation\r\nDevoutly to be wish'd. To die, to sleep.";
+string user_text = "Die. To be, or not to be, that is the question,\r\nWhether 'tis nobler in the mind to suffer\r\nThe slings and arrows of outrageous fortune,\r\nOr to take arms against a sea of troubles,\r\nAnd by opposing end them? To die: to sleep;\r\nNo more; and by a sleep to say we end\r\nThe heart-ache and the thousand natural shocks\r\nThat flesh is heir to, 'tis a consummation\r\nDevoutly to be wish'd. To die, to sleep.";
 string user_text_new;
 string unnac_word = "die";
 string stars = "*";
@@ -546,7 +546,7 @@ for(int i = 0; i<unnac_word.Length-1;i++)
 
 user_text_new = user_text.Replace(unnac_word, stars);
 
-words_amount = (user_text.Length - user_text_new.Length) / unnac_word.Length;
+words_amount = (user_text_new.Count(f => f == '*') / stars.Length);
 
 WriteLine($"{ user_text_new}\n\n{words_amount}");
 
