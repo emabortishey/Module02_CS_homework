@@ -546,8 +546,19 @@ for(int i = 0; i<unnac_word.Length-1;i++)
 
 user_text_new = user_text.Replace(unnac_word, stars);
 
+if (unnac_word[0] >64 && unnac_word[0] < 91)
+{
+    unnac_word = unnac_word.Replace(unnac_word[0], (char)(unnac_word[0] + 32));
+}
+else if(unnac_word[0] > 96 && unnac_word[0] < 123)
+{
+    unnac_word = unnac_word.Replace(unnac_word[0], (char)(unnac_word[0] - 32));
+}
+
+user_text_new = user_text_new.Replace(Convert.ToString(unnac_word), stars);
+
 words_amount = (user_text_new.Count(f => f == '*') / stars.Length);
 
-WriteLine($"{ user_text_new}\n\n{words_amount}");
+WriteLine($"{user_text_new}\n\n{words_amount}\n\n");
 
 public enum Ops { SUMM = 1, SUBT, MULT };
